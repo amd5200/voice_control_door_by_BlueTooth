@@ -1,0 +1,76 @@
+#include <SoftwareSerial.h>
+#include <Wire.h>
+
+SoftwareSerial I2CBT(2,4);//定義PIN2及PIN4分別為RX及TX腳位
+
+int LED1 = 7;
+
+void setup() {
+  Serial.begin(9600);
+  I2CBT.begin(9600);//bluetooth baud rate
+ pinMode(7, OUTPUT);  //設定 pin7 為輸出，LED就接在這
+}
+
+///////////////////main///////////////////////////
+
+void loop() {
+
+  byte cmmd[20];
+  int insize;
+ 
+ 
+  while(1){
+/*
+read message from bluetooth
+*/
+    if ((insize=(I2CBT.available()))>0){  //讀取藍牙訊息
+       Serial.print("input size = "); 
+       Serial.println(insize);
+       for (int i=0; i<insize; i++){
+         Serial.print(cmmd[i]=char(I2CBT.read()));
+         Serial.print(" "); 
+       }
+       Serial.println("  "); 
+    }  
+///*    
+      if (cmmd[0]==97) {               //passwd:"aabc"    
+        if (cmmd[1]==98) {
+          if (cmmd[2]==99) {
+          digitalWrite(LED1, HIGH);
+            cmmd[0]=96; 
+           delay(500);
+           digitalWrite(LED1, LOW);   //熄滅LED
+            }
+          }
+         }//if
+         
+  else if (cmmd[0]==98) {              //passwd:"bbac"
+          
+          if (cmmd[1]==97) {
+          if (cmmd[2]==99) {
+          digitalWrite(LED1, LOW);
+          //delay(10);
+          }
+          }
+          }//if
+//*/          
+/*
+      switch (cmmd[0]) {  //讀取第一個字
+        case 97: //"a"      //97為"a"的ASCII CODE
+          
+          digitalWrite(LED,HIGH);
+          
+          break;  
+      case 98://"b"   //98為"b"的ASCII CODE
+          
+          digitalWrite(LED,LOW);
+          
+          break;
+   
+      } //Switch
+//*/
+
+      
+  } //while
+
+}
