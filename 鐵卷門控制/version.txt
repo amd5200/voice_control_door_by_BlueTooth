@@ -1,5 +1,0 @@
-controldoor version
-bata 
-v1.0 增加晃動手機啟動聲控
-v2.0 增加自動連線功能
-v2.5 debug連續2次聲控偵測
